@@ -1,0 +1,169 @@
+// Initialise the expo project
+
+expo init DeliveryApplicationRider
+
+// Open project
+
+cd DeliveryApplicationRider
+
+code DeliveryApplicationRider
+
+// Run the development server
+
+npm start
+
+// Run the app on device or emulator
+
+npm run android
+npm run iOS
+
+// Install the library
+expo install @gorhom/bottom-sheet@^4
+
+// Install dependencies
+
+expo install react-native-reanimated react-native-gesture-handle
+
+// Add babel plugin in babel.config.js
+
+module.exports = {
+return {
+...
+ plugins: [‘react-native-reanimated/plugin’],
+}
+
+// Install React Navigation
+
+expo install @react-navigation/native
+
+// Installing dependencies
+
+expo install react-native-screens 
+expo install react-native-safe-area-context
+
+// Installing the native stack navigator
+
+expo install @react-navigation/native-stack
+
+// Wrap app in the NavigationContainer
+
+import { NavigationContainer } from '@react-navigation/native';
+export default function App() {
+ return (
+ <NavigationContainer>
+{/* Rest of app code */}
+</NavigationContainer>
+ );
+}
+
+1. Navigating
+1.1. Import
+import { useNavigation } from '@react-navigation/native';
+1.2. Get the navigation object
+const navigation = useNavigation();
+1.3. Navigate
+navigation.navigate('Orders')
+1.4. Send data
+navigation.navigate('OrderPickUp', {orderId: id}
+
+Install library
+- expo install react-native-maps
+- Add the map
+	<MapView style={styles.map} showsUserLocation followsUserLocation />
+- Render map markers 
+ 	<MapView style={styles.map} showsUserLocation followsUserLocation>
+ 		{orders.map((marker, index) => (
+ 		<Marker
+ 			key={index}
+ 			coordinate={{
+ 			latitude: marker.Restaurant.lat,
+ 			longitude: marker.Restaurant.lng,
+ 			}}
+ 			title={marker.Restaurant.name}
+ 			description={marker.Restaurant.address}
+ 			>
+ 			<Entypo name="shop" size={24} color="green" />
+ 			</Marker>
+ 		))}
+ 	</MapView>
+
+1.Install the libraries
+ 	expo install expo-location 
+	https://docs.expo.dev/versions/latest/sdk/location/
+
+	expo install react-native-maps-directions
+	https://www.npmjs.com/package/react-native-mapsdirections
+
+2. Enable Directions API
+3. Create API Key
+4. Enable Billing
+5. Set Quotas
+
+Delivery time and distance to the restaurant
+	- Request user location
+ 		let { status } = await Location.requestForegroundPermissionsAsync();
+ 		if (status !== "granted") {
+ 		// Permission not granted
+ 		}
+	-Get current user location
+ 		let location = await Location.getCurrentPositionAsync({});
+	- Listen to location changes
+ 		foregroundSubscrition = Location.watchPositionAsync(
+ 		{
+ 			// Tracking options
+ 			accuracy: Location.Accuracy.High,
+ 			distanceInterval: 500,
+ 		},
+ 			(updatedLocation) => {
+ 			// Make Changes
+ 		}
+ 		);
+
+Delivery route to the restaurant
+	- Render directions 
+		<MapViewDirections
+ 			origin={userLocation}
+ 			destination={endDestination}
+ 			apikey={“Google API Key”}
+ 			waypoints={[{ latitude: 37.903, longitude: -122.427843 }]}
+ 			strokeWidth={10}
+ 			strokeColor="#3FC060"
+ 			onReady={(result) => {
+ 				if (result.distance < 0.5) {
+ 				setIsCourierClose(true);
+ 			}
+ 			setTotalKm(result.distance);
+ 			setTotalTime(result.duration);
+ 			}}
+ 		/>
+
+Back End
+
+npm install aws-amplify 
+npm install aws-amplify-react-native 
+npm install @react-native-community/netinfo 
+npm install @react-native-async-storage/async-storage 
+npm install @reactnative-picker/picker
+
+npm install @azure/core-asynciterator-polyfill
+import '@azure/core-asynciterator-polyfill' (in beginning (1st import) App.js or Index.js file)
+npm install aws-amplify@5.0.15
+
+// Connect our React Native app with the Amplify backend
+
+1. Grab the pull command from Amplify Studio (from the top right corner)
+2. Execute the command in the root directory of your project
+3. Configure Amplify
+
+	import { Amplify } from 'aws-amplify' 
+	import awsconfig from './src/aws-exports' 
+	Amplify.configure(awsconfig
+
+// Implement Authentication
+
+import { withAuthenticator } from "aws-amplify-react-native"; 
+export default withAuthenticator(App)
+
+[{"_deleted": null, "_lastChangedAt": 1680188218118, "_version": 2, "createdAt": "2023-03-30T14:56:37.897Z", "id": "9fe4aa2f-ba91-45d4-a422-4099037547dd", "orderDishDishId": "3b26374c-0eb2-4a23-b8bf-fb46e2ac38d6", "orderID": "bf659e93-c107-41fa-b920-ba05a818f5ce", "quantity": 2, "updatedAt": "2023-03-30T14:56:58.069Z"}, 
+{"_deleted": null, "_lastChangedAt": 1680188238578, "_version": 1, "createdAt": "2023-03-30T14:57:18.545Z", "id": "89a0d740-c3b7-41cf-a965-64924d0a26b7", "orderDishDishId": "e476d13f-e518-447f-bdee-0a2c0769929d", "orderID": "bf659e93-c107-41fa-b920-ba05a818f5ce", "quantity": 4, "updatedAt": "2023-03-30T14:57:18.545Z"}, 
+{"_deleted": null, "_lastChangedAt": 1680188260123, "_version": 1, "createdAt": "2023-03-30T14:57:40.097Z", "id": "62f67607-30b0-4a49-9bc0-12644a3e9d22", "orderDishDishId": "956c4ce1-de57-482c-a0d3-20f0a46944ea", "orderID": "bf659e93-c107-41fa-b920-ba05a818f5ce", "quantity": 2, "updatedAt": "2023-03-30T14:57:40.097Z"}]
